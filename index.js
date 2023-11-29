@@ -4,8 +4,14 @@ const { MongoClient, ServerApiVersion, Collection, ObjectId } = require('mongodb
 const app = express()
 const port = 3000
 
+
+// middleware
+app.use(cors({
+  origin: ['https://life-flow-server-ten.vercel.app', 'http://localhost:3000', 'https://lifeflow-25df5.web.app', ],
+  methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
+}));
+
 app.use(express.json());
-app.use(cors())
 
 
 
