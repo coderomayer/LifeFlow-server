@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { MongoClient, ServerApiVersion, Collection } = require('mongodb');
+const { MongoClient, ServerApiVersion, Collection, ObjectId } = require('mongodb');
 const app = express()
 const port = 3000
 
@@ -41,6 +41,23 @@ async function run() {
       const result = await userCollection.find().toArray();
       res.send(result)
     })
+
+    app.get('/users/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = {_id: new ObjectId (id)};
+      const result = await userCollection.findOne(query);
+      res.send(result)
+    })
+
+    app.delete('/users/:id' , async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await userCollection.deleteOne(query);
+      res.send(result);
+    })
+
+
+
 
     // District Data
     app.get('/district', async (req, res) => {
